@@ -1,2 +1,2 @@
-# Furry-Extermination
-The official Furry Extermination Discord bot
+# Furry-Xtermination
+The official Furry Xterminator Discord bot
