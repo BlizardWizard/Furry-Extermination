@@ -20,7 +20,7 @@ bot = commands.Bot(command_prefix="%")
 
 
 storage_client = storage.Client.from_service_account_json(googleAPIJsonPath)
-vision_client = vision.ImageAnnotatorClient("#ce611d78e4f74b7b169081bb0fdb1ed7bd3daa8d")
+vision_client = vision.ImageAnnotatorClient("#")
 
 
 @bot.event
