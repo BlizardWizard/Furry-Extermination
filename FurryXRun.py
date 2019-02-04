@@ -18,12 +18,9 @@ discordTokenPath = project_dir + "/tokenSecret.txt"
 discord_client = discord.Client()
 bot = commands.Bot(command_prefix="%")
 
-# with open(googleAPIJsonPath, 'r') as googleJson:
-#     json_content = json.load(googleJson)
-#     googleJson.close()
 
 storage_client = storage.Client.from_service_account_json(googleAPIJsonPath)
-vision_client = vision.ImageAnnotatorClient()
+vision_client = vision.ImageAnnotatorClient("#ce611d78e4f74b7b169081bb0fdb1ed7bd3daa8d")
 
 
 @bot.event
@@ -37,9 +34,10 @@ async def on_ready():
 file = 'E:/Ivar/Desktop/Quarantine/download.jpg'
 with io.open(file, 'rb') as image_file:
     file_content = image_file.read()
-    image = vision_client.image(content=file_content)
+    image = vision.types.Image(content=file_content)
 
-labels = image.detect_labels()
+response = vision_client.label_detection(image=image)
+labels = response.label_annotations
 for label in labels:
     print(label.description)
 
