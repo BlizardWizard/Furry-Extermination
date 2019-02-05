@@ -9,40 +9,46 @@ import sys
 import json
 from google.cloud import vision
 from google.cloud.vision import types
-from google.cloud import storage
+from google.oauth2 import service_account
 
 project_dir = os.getcwd().replace('\\', '/')
 # Change these values to the correct values for your files
 googleAPIJsonPath = project_dir + "/GoogleVision.json"
 discordTokenPath = project_dir + "/tokenSecret.txt"
-discord_client = discord.Client()
-bot = commands.Bot(command_prefix="%")
+
+with io.open(os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")) as google_credentials_raw:
+    google_credentials_json = json.load(google_credentials_raw)
 
 
-storage_client = storage.Client.from_service_account_json(googleAPIJsonPath)
-vision_client = vision.ImageAnnotatorClient("#")
+google_credentials = service_account.Credentials.from_service_account_info(google_credentials_json)
+vision_client = vision.ImageAnnotatorClient(credentials=google_credentials)
 
 
-@bot.event
-async def on_ready():
-    print("FurryXterminator is ready")
-    print("Client: " + bot.user.name)
-    print("ID: " + bot.user.id)
-    await bot.change_presence(game=discord.Game(name="Xterminating Furries"))
+# discord_client = discord.Client()
+# bot = commands.Bot(command_prefix="%")
+#
+#
+# @bot.event
+# async def on_ready():
+#     print("FurryXterminator is ready")
+#     print("Client: " + bot.user.name)
+#     print("ID: " + bot.user.id)
+#     await bot.change_presence(game=discord.Game(name="Xterminating Furries"))
 
 
 file = 'E:/Ivar/Desktop/Quarantine/download.jpg'
-with io.open(file, 'rb') as image_file:
-    file_content = image_file.read()
-    image = vision.types.Image(content=file_content)
+url = 'https://media1.tenor.com/images/59371e16bf2c92a158a0bf84e1e70bb6/tenor.gif'
+
+image = types.Image()
+image.source.image_uri = url
 
 response = vision_client.label_detection(image=image)
 labels = response.label_annotations
 for label in labels:
-    print(label.description)
+    print(labels)
 
 
-token_file = open(discordTokenPath, 'r')
-token = token_file.readline().replace('\n', '')
-token_file.close()
-bot.run(token)
+# token_file = open(discordTokenPath, 'r')
+# token = token_file.readline().replace('\n', '')
+# token_file.close()
+# bot.run(token)
