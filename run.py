@@ -36,10 +36,10 @@ url = 'https://media1.tenor.com/images/59371e16bf2c92a158a0bf84e1e70bb6/tenor.gi
 image = types.Image()
 image.source.image_uri = url
 
-response = vision_client.label_detection(image=image)
-labels = response.label_annotations
-for label in labels:
-    print(labels)
+# response = vision_client.label_detection(image=image)
+# labels = response.label_annotations
+# for label in labels:
+#     print(labels)
 
 
 # token_file = open(discordTokenPath, 'r')
