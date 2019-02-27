@@ -1,4 +1,4 @@
 discord.py
 google-cloud-vision
-google-auth
+google-oauth
 asyncio
