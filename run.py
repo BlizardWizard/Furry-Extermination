@@ -13,16 +13,10 @@ from google.oauth2 import service_account
 
 project_dir = os.getcwd().replace('\\', '/')
 # Change these values to the correct values for your files
-googleAPIJsonPath = project_dir + "/GoogleVision.json"
-discordTokenPath = project_dir + "/tokenSecret.txt"
 
-with io.open(os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")) as google_credentials_raw:
-    google_credentials_json = json.load(google_credentials_raw)
-
-
-google_credentials = service_account.Credentials.from_service_account_info(google_credentials_json)
-vision_client = vision.ImageAnnotatorClient(credentials=google_credentials)
-
+vision_client = vision.ImageAnnotatorClient(
+    credentials=service_account.Credentials.from_service_account_info(
+        json.loads(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))))
 
 # discord_client = discord.Client()
 # bot = commands.Bot(command_prefix="%")
@@ -52,3 +46,5 @@ for label in labels:
 # token = token_file.readline().replace('\n', '')
 # token_file.close()
 # bot.run(token)
+
+bot.run(os.environ.get('BOT_TOKEN'))
