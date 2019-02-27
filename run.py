@@ -18,8 +18,8 @@ vision_client = vision.ImageAnnotatorClient(
     credentials=service_account.Credentials.from_service_account_info(
         json.loads(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))))
 
-# discord_client = discord.Client()
-# bot = commands.Bot(command_prefix="%")
+discord_client = discord.Client()
+bot = commands.Bot(command_prefix="%")
 #
 #
 # @bot.event
