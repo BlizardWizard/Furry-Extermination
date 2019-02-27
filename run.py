@@ -11,7 +11,7 @@ from google.cloud import vision
 from google.cloud.vision import types
 from google.oauth2 import service_account
 
-project_dir = os.getcwd().replace('\\', '/')
+# project_dir = os.getcwd().replace('\\', '/')
 # Change these values to the correct values for your files
 
 vision_client = vision.ImageAnnotatorClient(
@@ -22,12 +22,12 @@ discord_client = discord.Client()
 bot = commands.Bot(command_prefix="%")
 #
 #
-# @bot.event
-# async def on_ready():
-#     print("FurryXterminator is ready")
-#     print("Client: " + bot.user.name)
-#     print("ID: " + bot.user.id)
-#     await bot.change_presence(game=discord.Game(name="Xterminating Furries"))
+@bot.event
+async def on_ready():
+    print("FilterBot is ready")
+    print("Client: " + bot.user.name)
+    print("ID: " + bot.user.id)
+    await bot.change_presence(game=discord.Game(name="Filtering Images"))
 
 
 file = 'E:/Ivar/Desktop/Quarantine/download.jpg'
