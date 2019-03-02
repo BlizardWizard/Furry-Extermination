@@ -19,32 +19,25 @@ vision_client = vision.ImageAnnotatorClient(
         json.loads(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))))
 
 discord_client = discord.Client()
-bot = commands.Bot(command_prefix="%")
-#
-#
-@bot.event
+discord_bot = commands.Bot(command_prefix="%")
+
+
+@discord_bot.event
 async def on_ready():
     print("FilterBot is ready")
-    print("Client: " + bot.user.name)
-    print("ID: " + bot.user.id)
-    await bot.change_presence(game=discord.Game(name="Filtering Images"))
+    print("Client: " + discord_bot.user.name)
+    print("ID: " + discord_bot.user.id)
+    await discord_bot.change_presence(game=discord.Game(name="Filtering Images"))
 
 
-file = 'E:/Ivar/Desktop/Quarantine/download.jpg'
 url = 'https://media1.tenor.com/images/59371e16bf2c92a158a0bf84e1e70bb6/tenor.gif'
 
 image = types.Image()
 image.source.image_uri = url
 
-# response = vision_client.label_detection(image=image)
-# labels = response.label_annotations
-# for label in labels:
-#     print(labels)
+response = vision_client.label_detection(image=image)
+labels = response.label_annotations
+for label in labels:
+    await discord_bot.send_message('512428434560122913', label)
 
-
-# token_file = open(discordTokenPath, 'r')
-# token = token_file.readline().replace('\n', '')
-# token_file.close()
-# bot.run(token)
-
-bot.run(os.environ.get('BOT_TOKEN'))
+discord_bot.run(os.environ.get('BOT_TOKEN'))
