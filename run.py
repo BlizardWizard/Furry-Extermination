@@ -35,10 +35,10 @@ async def on_ready():
     image = types.Image()
     image.source.image_uri = url
 
-    
+
     response = vision_client.label_detection(image=image)
     labels = response.label_annotations
     for label in labels:
-        await discord_bot.send_message('512428434560122913', label)
+        await discord_bot.send_message(discord_client.get_channel('512428434560122913'), label)
 
 discord_bot.run(os.environ.get('BOT_TOKEN'))
